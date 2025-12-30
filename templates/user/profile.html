@@ -1,0 +1,60 @@
+{% extends "layouts/base.html" %}
+
+{% block title %}My Profile - Flask Demo{% endblock %}
+
+{% block content %}
+<div class="row">
+    <div class="col-12">
+        <h2 class="mb-4">👤 My Profile</h2>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-8 col-lg-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Profile Information</h5>
+            </div>
+            <div class="card-body">
+                <table class="table table-borderless">
+                    <tbody>
+                        <tr>
+                            <th style="width: 150px;">Username:</th>
+                            <td>{{ user.username }}</td>
+                        </tr>
+                        <tr>
+                            <th>Email:</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                        <tr>
+                            <th>Role:</th>
+                            <td>
+                                {% if user.role == 'admin' %}
+                                <span class="badge bg-danger">Admin</span>
+                                {% else %}
+                                <span class="badge bg-primary">User</span>
+                                {% endif %}
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>Member Since:</th>
+                            <td>{{ user.created_at.strftime('%B %d, %Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Last Updated:</th>
+                            <td>{{ user.updated_at.strftime('%B %d, %Y at %H:%M') }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="card-footer">
+                {% if user.is_admin %}
+                <a href="{{ url_for('admin.dashboard') }}" class="btn btn-outline-primary">
+                    📊 Go to Admin Dashboard
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

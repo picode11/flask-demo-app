@@ -1,0 +1,23 @@
+# Flask Demo Project Dependencies
+
+# Core Framework
+Flask==3.0.0
+
+# Database ORM
+Flask-SQLAlchemy==3.1.1
+SQLAlchemy==2.0.23
+pymysql==1.1.0  # MySQL Driver
+
+# User Authentication
+Flask-Login==0.6.3
+
+# Forms and Validation
+Flask-WTF==1.2.1
+WTForms==3.1.1
+email-validator==2.1.0
+
+# Environment Variables
+python-dotenv==1.0.0
+
+# Password Hashing (included with Flask but listed for clarity)
+Werkzeug==3.0.1
