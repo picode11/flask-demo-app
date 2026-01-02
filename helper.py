@@ -6,6 +6,31 @@ Contains helper functions like database seeding.
 
 from extensions import db
 from models.user import User
+import os
+import secrets
+from flask import current_app
+
+
+def save_picture(form_picture):
+    """
+    Save profile picture to filesystem.
+    
+    Args:
+        form_picture: FileStorage object from form
+        
+    Returns:
+        filename: Name of saved file
+    """
+    random_hex = secrets.token_hex(8)
+    _, f_ext = os.path.splitext(form_picture.filename)
+    picture_fn = random_hex + f_ext
+    picture_path = os.path.join(current_app.config['UPLOAD_FOLDER'], picture_fn)
+    
+    # Ensure upload directory exists
+    os.makedirs(current_app.config['UPLOAD_FOLDER'], exist_ok=True)
+    
+    form_picture.save(picture_path)
+    return picture_fn
 
 
 def seed_database(app):

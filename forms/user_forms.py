@@ -5,6 +5,7 @@ Forms for user CRUD operations with validations.
 """
 
 from flask_wtf import FlaskForm
+import flask_wtf.file
 from wtforms import StringField, PasswordField, SelectField, SubmitField
 from wtforms.validators import DataRequired, Email, Length, Optional, ValidationError
 from models.user import User
@@ -111,6 +112,10 @@ class UserEditForm(FlaskForm):
         render_kw={'class': 'form-control'}
     )
     
+    photo = flask_wtf.file.FileField('Profile Picture', validators=[
+        flask_wtf.file.FileAllowed(['jpg', 'png', 'jpeg', 'gif'], 'Images only!')
+    ])
+    
     submit = SubmitField('Update User', render_kw={'class': 'btn btn-primary'})
     
     def __init__(self, original_username=None, original_email=None, *args, **kwargs):
@@ -138,3 +143,14 @@ class UserEditForm(FlaskForm):
             user = User.query.filter_by(email=field.data).first()
             if user:
                 raise ValidationError('Email already registered. Please use a different email.')
+
+
+class ProfileUploadForm(FlaskForm):
+    """
+    Form for uploading profile picture.
+    """
+    photo = flask_wtf.file.FileField('Profile Picture', validators=[
+        flask_wtf.file.FileRequired(),
+        flask_wtf.file.FileAllowed(['jpg', 'png', 'jpeg', 'gif'], 'Images only!')
+    ])
+    submit = SubmitField('Upload', render_kw={'class': 'btn btn-primary'})

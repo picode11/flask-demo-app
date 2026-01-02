@@ -5,7 +5,6 @@ This is the main file to run the Flask application.
 Run with: python run.py
 """
 from flask import Flask
-from application import create_app
 from extensions import db, login_manager
 from models.user import User
 from config import config

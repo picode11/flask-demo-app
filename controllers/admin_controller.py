@@ -8,6 +8,7 @@ from flask import render_template, redirect, url_for, flash
 from forms.user_forms import UserCreateForm, UserEditForm
 from models.user import User
 from extensions import db
+from helper import save_picture
 
 
 def dashboard():
@@ -104,6 +105,11 @@ def edit_user(user_id):
         # Only update password if provided
         if form.password.data:
             user.set_password(form.password.data)
+            
+        # Update profile picture if provided
+        if form.photo.data:
+            picture_file = save_picture(form.photo.data)
+            user.profile_image = picture_file
         
         # Save changes
         db.session.commit()

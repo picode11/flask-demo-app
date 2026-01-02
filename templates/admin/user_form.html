@@ -20,7 +20,7 @@
     <div class="col-md-8 col-lg-6">
         <div class="card">
             <div class="card-body">
-                <form method="POST" novalidate>
+                <form method="POST" enctype="multipart/form-data" novalidate>
 
                     <!-- Username Field -->
                     <div class="mb-3">
@@ -67,6 +67,23 @@
                             <strong>User:</strong> Can only view their profile
                         </div>
                     </div>
+
+                    <!-- Profile Picture Field (Edit Only) -->
+                    {% if form.photo %}
+                    <div class="mb-3">
+                        {{ form.photo.label(class="form-label") }}
+                        {% if user and user.profile_image %}
+                        <div class="mb-2">
+                            <img src="{{ url_for('static', filename='uploads/' + user.profile_image) }}" alt="Current Profile" class="rounded-circle border" style="width: 60px; height: 60px; object-fit: cover;">
+                        </div>
+                        {% endif %}
+                        {{ form.photo(class="form-control" + (" is-invalid" if form.photo.errors else "")) }}
+                        {% for error in form.photo.errors %}
+                        <div class="invalid-feedback">{{ error }}</div>
+                        {% endfor %}
+                        <div class="form-text">Allowed formats: jpg, png, jpeg, gif.</div>
+                    </div>
+                    {% endif %}
 
                     <!-- Buttons -->
                     <div class="d-flex gap-2">

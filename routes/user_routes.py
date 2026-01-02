@@ -14,7 +14,7 @@ user_bp = Blueprint('user', __name__)
 
 
 # Profile route
-@user_bp.route('/profile')
+@user_bp.route('/profile', methods=['GET', 'POST'])
 @login_required
 def profile():
     """Display user's profile."""

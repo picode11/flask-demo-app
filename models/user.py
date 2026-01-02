@@ -37,6 +37,9 @@ class User(UserMixin, db.Model):
     # Role: 'admin' or 'user'
     role = db.Column(db.String(20), nullable=False, default='user')
     
+    # Profile Image
+    profile_image = db.Column(db.String(120), nullable=True, default='default.jpg')
+    
     # Timestamps
     created_at = db.Column(db.DateTime, default=datetime.utcnow)
     updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
